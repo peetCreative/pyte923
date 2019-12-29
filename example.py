@@ -1,3 +1,3 @@
 import pyte923
 
-print(pyte923.py_getCurDataSet())
+print(pyte923.py_getStatus())

@@ -26,9 +26,35 @@ cdef extern from "te923/te923con.h":
         int _storm
         int _forecast
         int _src
+
+    ctypedef struct Te923DevSet_t:
+        int SysVer
+        int BarVer
+        int UvVer
+        int RccVer
+        int WindVer
+        int battery1
+        int battery2
+        int battery3
+        int battery4
+        int battery5
+        int batteryUV
+        int batteryWind
+        int batteryRain
 #    Te923DataSet_t get_memdump(int is_big)
     Te923DataSet_t get_rtdata()
- #   Te923DevSet_t get_status()
+    Te923DevSet_t get_status()
 
-def py_getCurDataSet() -> Te923DataSet_t:
-    return get_rtdata()
+def py_getStatus() -> Te923DevSet_t:
+    data = get_status()
+    if data.SysVer == 0:
+        return None
+    else:
+        return data
+
+def py_getRTData() -> Te923DataSet_t:
+    data = get_rtdata()
+    if data.timestamp == 0:
+        return None
+    else:
+        return data
